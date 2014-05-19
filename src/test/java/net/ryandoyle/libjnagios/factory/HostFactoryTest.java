@@ -1,20 +1,17 @@
 package net.ryandoyle.libjnagios.factory;
 
 import net.ryandoyle.libjnagios.domain.Host;
-import net.ryandoyle.libjnagios.domain.Service;
-import org.testng.annotations.BeforeTest;
-import org.testng.annotations.Test;
+import org.junit.Before;
+import org.junit.Test;
 
-import static org.hamcrest.CoreMatchers.not;
 import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.assertThat;
-import static org.mockito.Matchers.anyListOf;
 
 public class HostFactoryTest extends BaseHtmlTestFactory {
 
     Host host;
 
-    @BeforeTest
+    @Before
     public void setup(){
         host = new HostFactory(html).build();
     }

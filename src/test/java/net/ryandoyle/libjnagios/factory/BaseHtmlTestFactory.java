@@ -1,9 +1,5 @@
 package net.ryandoyle.libjnagios.factory;
 
-
-import net.ryandoyle.libjnagios.domain.Host;
-import org.testng.annotations.BeforeTest;
-
 public class BaseHtmlTestFactory {
 
     public String html =  "<P>\n" +

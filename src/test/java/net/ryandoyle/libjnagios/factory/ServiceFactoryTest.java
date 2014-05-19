@@ -4,8 +4,8 @@ import net.ryandoyle.libjnagios.domain.Service;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
-import org.testng.annotations.BeforeTest;
-import org.testng.annotations.Test;
+import org.junit.Before;
+import org.junit.Test;
 
 import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.assertThat;
@@ -14,7 +14,7 @@ public class ServiceFactoryTest extends BaseHtmlTestFactory {
 
     private Service service;
 
-    @BeforeTest
+    @Before
     public void setup(){
         Document document = Jsoup.parse(html);
         Element firstServiceLink = document.select("a[href~=^extinfo.cgi\\?type=2&host=localhost]").first();
