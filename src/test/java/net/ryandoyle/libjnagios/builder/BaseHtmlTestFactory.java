@@ -1,6 +1,10 @@
-package net.ryandoyle.libjnagios.factory;
+package net.ryandoyle.libjnagios.builder;
 
 public class BaseHtmlTestFactory {
+
+    /*
+    * generated via: http://localhost:8088/cgi-bin/nagios3/status.cgi?embedded=1&noheader=1&limit=0&host=localhost
+    * */
 
     public String html =  "<P>\n" +
             "<table border=0 width=100%>\n" +

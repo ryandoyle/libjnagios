@@ -1,23 +1,20 @@
-package net.ryandoyle.libjnagios.factory;
+package net.ryandoyle.libjnagios.builder;
 
 
 import net.ryandoyle.libjnagios.domain.Host;
-import net.ryandoyle.libjnagios.domain.Service;
+import net.ryandoyle.libjnagios.page.Page;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
-import java.util.ArrayList;
-import java.util.List;
-
-public class HostFactory {
+public class HostBuilder {
 
     private final Document document;
     private Host host;
 
-    public HostFactory(String html) {
-        this.document = Jsoup.parse(html);
+    public HostBuilder(Page page) {
+        this.document = Jsoup.parse(page.toString());
     }
 
     public Host build() {
@@ -32,7 +29,7 @@ public class HostFactory {
 
     private void addServicesToHost() {
         for(Element element : serviceLinkElements()){
-            host.addService(ServiceFactory.build(element));
+            host.addService(ServiceBuilder.build(element));
         }
     }
 

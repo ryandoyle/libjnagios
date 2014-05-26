@@ -1,21 +1,21 @@
-package net.ryandoyle.libjnagios.factory;
+package net.ryandoyle.libjnagios.builder;
 
 import net.ryandoyle.libjnagios.domain.Service;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
-public class ServiceFactory {
+public class ServiceBuilder {
 
     private final Element serviceLinkElement;
     private final Service service;
 
-    public ServiceFactory(Element serviceLinkElement){
+    public ServiceBuilder(Element serviceLinkElement){
         this.serviceLinkElement = serviceLinkElement;
         this.service = new Service();
     }
 
     public static Service build(Element serviceLinkElement){
-        return new ServiceFactory(serviceLinkElement).buildService();
+        return new ServiceBuilder(serviceLinkElement).buildService();
     }
 
     private Service buildService(){

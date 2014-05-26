@@ -1,4 +1,4 @@
-package net.ryandoyle.libjnagios.factory;
+package net.ryandoyle.libjnagios.builder;
 
 import net.ryandoyle.libjnagios.domain.Service;
 import org.jsoup.Jsoup;
@@ -10,7 +10,7 @@ import org.junit.Test;
 import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.assertThat;
 
-public class ServiceFactoryTest extends BaseHtmlTestFactory {
+public class ServiceBuilderTest extends BaseHtmlTestFactory {
 
     private Service service;
 
@@ -18,7 +18,7 @@ public class ServiceFactoryTest extends BaseHtmlTestFactory {
     public void setup(){
         Document document = Jsoup.parse(html);
         Element firstServiceLink = document.select("a[href~=^extinfo.cgi\\?type=2&host=localhost]").first();
-        service = ServiceFactory.build(firstServiceLink);
+        service = ServiceBuilder.build(firstServiceLink);
     }
 
     @Test

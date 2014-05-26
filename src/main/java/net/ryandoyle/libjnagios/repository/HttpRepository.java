@@ -1,21 +1,29 @@
 package net.ryandoyle.libjnagios.repository;
 
-import net.ryandoyle.libjnagios.page.CgiConnection;
+import net.ryandoyle.libjnagios.builder.HostBuilder;
+import net.ryandoyle.libjnagios.page.Page;
+import net.ryandoyle.libjnagios.page.PageFactory;
 import net.ryandoyle.libjnagios.domain.Host;
-import org.jsoup.nodes.Document;
 
 import java.io.IOException;
 
 public class HttpRepository implements NagiosRepository {
 
-    private final CgiConnection cgiConnection;
+    private final PageFactory pageFactory;
 
-    public HttpRepository(CgiConnection connection) {
-        this.cgiConnection = connection;
+    public HttpRepository(PageFactory connection) {
+        this.pageFactory = connection;
     }
 
     @Override
     public Host getHost(String hostName) {
-        return null;
+        // TODO: Throw an "InvalidHostException" if it is not found
+        Page page = null;
+        try {
+            page = pageFactory.getPageforHost(hostName);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return new HostBuilder(page).build();
     }
 }

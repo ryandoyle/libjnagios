@@ -1,8 +1,7 @@
 package net.ryandoyle.libjnagios.page;
 
-public class Page {
+public abstract class Page {
 
-    public Page(String url, String userName, String password){
+    public abstract String toString();
 
-    }
 }
