@@ -7,12 +7,12 @@ import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
-public class HostBuilder {
+public class HtmlHostBuilder {
 
     private final Document document;
     private Host host;
 
-    public HostBuilder(String page) {
+    public HtmlHostBuilder(String page) {
         this.document = Jsoup.parse(page);
     }
 

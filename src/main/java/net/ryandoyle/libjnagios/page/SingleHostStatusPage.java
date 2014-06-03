@@ -1,6 +1,6 @@
 package net.ryandoyle.libjnagios.page;
 
-import net.ryandoyle.libjnagios.builder.HostBuilder;
+import net.ryandoyle.libjnagios.builder.HtmlHostBuilder;
 import net.ryandoyle.libjnagios.domain.Host;
 import net.ryandoyle.libjnagios.http.HttpClient;
 
@@ -16,6 +16,6 @@ public class SingleHostStatusPage {
 
     public Host getHost() throws IOException {
         String page = httpClient.getBody();
-        return new HostBuilder(page).build();
+        return new HtmlHostBuilder(page).build();
     }
 }

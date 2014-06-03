@@ -1,24 +1,21 @@
 package net.ryandoyle.libjnagios.builder;
 
 import net.ryandoyle.libjnagios.domain.Host;
-import net.ryandoyle.libjnagios.page.SingleHostStatusPage;
 import org.junit.Before;
 import org.junit.Test;
-import org.mockito.Mock;
 
 import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.assertThat;
-import static org.mockito.Mockito.when;
 import static org.mockito.MockitoAnnotations.initMocks;
 
-public class HostBuilderTest extends BaseHtmlTestFactory {
+public class HtmlHostBuilderTest extends BaseHtmlTestFactory {
 
     Host host;
 
     @Before
     public void setup(){
         initMocks(this);
-        host = new HostBuilder(html).build();
+        host = new HtmlHostBuilder(html).build();
     }
 
     @Test
