@@ -15,14 +15,10 @@ public class HostBuilderTest extends BaseHtmlTestFactory {
 
     Host host;
 
-    @Mock
-    SingleHostStatusPage singleHostStatusPage;
-
     @Before
     public void setup(){
         initMocks(this);
-        when(singleHostStatusPage.toString()).thenReturn(html);
-        host = new HostBuilder(singleHostStatusPage).build();
+        host = new HostBuilder(html).build();
     }
 
     @Test

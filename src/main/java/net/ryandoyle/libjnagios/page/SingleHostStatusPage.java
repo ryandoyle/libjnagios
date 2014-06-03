@@ -1,10 +1,12 @@
 package net.ryandoyle.libjnagios.page;
 
+import net.ryandoyle.libjnagios.builder.HostBuilder;
+import net.ryandoyle.libjnagios.domain.Host;
 import net.ryandoyle.libjnagios.http.HttpClient;
 
 import java.io.IOException;
 
-public class SingleHostStatusPage extends Page {
+public class SingleHostStatusPage {
 
     private final HttpClient httpClient;
 
@@ -12,13 +14,8 @@ public class SingleHostStatusPage extends Page {
         this.httpClient = httpClient.navigateTo("/status.cgi?embedded=1&noheader=1&limit=0&host=" + host);
     }
 
-    @Override
-    public String toString() {
-        try {
-            return httpClient.getBody();
-        } catch (IOException e) {
-            return null;
-        }
+    public Host getHost() throws IOException {
+        String page = httpClient.getBody();
+        return new HostBuilder(page).build();
     }
-
 }

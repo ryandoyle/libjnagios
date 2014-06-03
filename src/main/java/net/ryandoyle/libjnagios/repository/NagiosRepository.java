@@ -8,5 +8,5 @@ import java.util.List;
 
 public interface NagiosRepository {
 
-    public Host getHost(String hostName);
+    public Host getHost(String hostName) throws IOException;
 }

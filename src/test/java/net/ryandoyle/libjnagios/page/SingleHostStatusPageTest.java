@@ -28,7 +28,7 @@ public class SingleHostStatusPageTest {
     @Test
     public void itUsesTheCorrectUrlToGetThe() throws IOException {
         String host = "localhost";
-        Page page = new SingleHostStatusPage(httpClient, host);
+        SingleHostStatusPage page = new SingleHostStatusPage(httpClient, host);
         verify(httpClient).navigateTo("/status.cgi?embedded=1&noheader=1&limit=0&host=" + host);
     }
 
