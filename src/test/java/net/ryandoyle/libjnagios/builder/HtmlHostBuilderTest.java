@@ -1,6 +1,8 @@
 package net.ryandoyle.libjnagios.builder;
 
 import net.ryandoyle.libjnagios.domain.Host;
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -15,7 +17,8 @@ public class HtmlHostBuilderTest extends BaseHtmlTestFactory {
     @Before
     public void setup(){
         initMocks(this);
-        host = new HtmlHostBuilder(html).build();
+        Document document = Jsoup.parse(html);
+        host = new HtmlHostBuilder(document).build();
     }
 
     @Test

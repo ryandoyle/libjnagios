@@ -2,7 +2,6 @@ package net.ryandoyle.libjnagios.builder;
 
 
 import net.ryandoyle.libjnagios.domain.Host;
-import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
@@ -12,8 +11,8 @@ public class HtmlHostBuilder {
     private final Document document;
     private Host host;
 
-    public HtmlHostBuilder(String page) {
-        this.document = Jsoup.parse(page);
+    public HtmlHostBuilder(Document document) {
+        this.document = document;
     }
 
     public Host build() {
