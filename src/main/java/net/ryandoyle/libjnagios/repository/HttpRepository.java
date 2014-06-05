@@ -1,5 +1,6 @@
 package net.ryandoyle.libjnagios.repository;
 
+import net.ryandoyle.libjnagios.domain.HostFactory;
 import net.ryandoyle.libjnagios.http.HttpClient;
 import net.ryandoyle.libjnagios.domain.Host;
 import net.ryandoyle.libjnagios.page.SingleHostStatusPage;
@@ -16,6 +17,8 @@ public class HttpRepository implements NagiosRepository {
 
     @Override
     public Host getHost(String hostName) throws IOException {
-        return new SingleHostStatusPage(httpClient, hostName).getHost();
+        SingleHostStatusPage page = new SingleHostStatusPage(httpClient, hostName);
+        Host host = new HostFactory(page).buildHost();
+        return host;
     }
 }

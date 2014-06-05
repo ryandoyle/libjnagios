@@ -11,13 +11,13 @@ public class NagiosClientTest {
 
     @Test
     public void aNagiosClientCanBeUsedWithoutAnyAuthentication() throws IOException {
-        NagiosClient client = new NagiosClient("url");
+        NagiosClient client = new NagiosClient("http://test");
         assertNotNull(client);
     }
 
     @Test
     public void aNagiosClientCanBeUsedWithAnNagiosInstanceThatRequiresAuthentication() throws IOException {
-        NagiosClient client = new NagiosClient("url", "username", "password");
+        NagiosClient client = new NagiosClient("http://test", "username", "password");
         assertNotNull(client);
     }
 

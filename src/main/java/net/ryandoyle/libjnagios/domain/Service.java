@@ -2,20 +2,19 @@ package net.ryandoyle.libjnagios.domain;
 
 public class Service {
 
-    private String name;
+    private final String name;
     private String status;
     private String lastCheck;
     private String duration;
     private String attempt;
     private String statusInformation;
 
+    public Service(String name){
+        this.name = name;
+    }
 
     public String getName() {
         return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
     }
 
     public String getStatus() {

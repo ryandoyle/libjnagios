@@ -24,7 +24,7 @@ public class TestSoup {
 
 
         Document document = Jsoup.connect("http://localhost:8088/cgi-bin/nagios3/status.cgi?embedded=1&noheader=1&limit=0&host=localhost").header("Authorization", "Basic " + basicAuthLogin).get();
-        Elements elements = document.select("");
+       // Elements elements = document.select("");
         System.out.println(document.toString());
 
     }

@@ -14,14 +14,13 @@ public class HostTest {
 
     @Before
     public void beforeTest() {
-        service1 = new Service();
+        service1 = new Service("SSH");
         host = new Host("testhost.example.com");
 
     }
 
     @Test
     public void itShouldBeAbleToAddServicesToAHost() throws Exception {
-        service1.setName("SSH");
         host.addService(service1);
         assertThat(host.getServices(), hasItem(service1));
     }
