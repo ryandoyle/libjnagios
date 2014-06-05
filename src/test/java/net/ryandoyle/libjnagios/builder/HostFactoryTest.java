@@ -17,7 +17,7 @@ import static org.junit.Assert.assertThat;
 import static org.mockito.Mockito.when;
 import static org.mockito.MockitoAnnotations.initMocks;
 
-public class HostFactoryTest extends BaseHtmlTestFactory {
+public class HostFactoryTest  {
 
     @Mock
     SingleHostStatusPage page;
@@ -27,9 +27,9 @@ public class HostFactoryTest extends BaseHtmlTestFactory {
     @Before
     public void setup(){
         initMocks(this);
-        host = new HostFactory(page).buildHost();
         when(page.getHostname()).thenReturn("localhost");
         when(page.getHostServices()).thenReturn(new ArrayList<List<String>>());
+        host = new HostFactory(page).buildHost();
     }
 
     @Test
