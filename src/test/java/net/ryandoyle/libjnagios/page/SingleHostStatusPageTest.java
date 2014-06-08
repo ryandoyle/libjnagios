@@ -73,6 +73,6 @@ public class SingleHostStatusPageTest {
 
     @Test
     public void containsTheStatusInformationForAService(){
-        assertThat(firstService.get(SingleHostStatusPage.SERVICE_STATUS_INFORMATION), is("OK - load average: 0.26, 0.28, 0.26 "));
+        assertThat(firstService.get(SingleHostStatusPage.SERVICE_STATUS_INFORMATION), is("OK - load average: 0.26, 0.28, 0.26"));
     }
 }

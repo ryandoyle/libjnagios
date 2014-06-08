@@ -48,7 +48,7 @@ public class SingleHostStatusPage {
         row.add(serviceTableRow.get(SERVICE_LAST_CHECK).text());
         row.add(serviceTableRow.get(SERVICE_DURATION).text());
         row.add(serviceTableRow.get(SERVICE_ATTEMPT).text());
-        row.add(serviceTableRow.get(SERVICE_STATUS_INFORMATION).text());
+        row.add(serviceTableRow.get(SERVICE_STATUS_INFORMATION).text().replace("\u00a0", ""));
         return row;
     }
 
