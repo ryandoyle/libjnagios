@@ -3,8 +3,6 @@ package net.ryandoyle.libjnagios.builder;
 import net.ryandoyle.libjnagios.domain.Host;
 import net.ryandoyle.libjnagios.domain.HostFactory;
 import net.ryandoyle.libjnagios.page.SingleHostStatusPage;
-import org.jsoup.Jsoup;
-import org.jsoup.nodes.Document;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mock;
@@ -28,7 +26,8 @@ public class HostFactoryTest  {
     public void setup(){
         initMocks(this);
         when(page.getHostname()).thenReturn("localhost");
-        when(page.getHostServices()).thenReturn(new ArrayList<List<String>>());
+        when(page.getHostServices()).thenReturn(buildServices());
+
         host = new HostFactory(page).buildHost();
     }
 
@@ -40,6 +39,19 @@ public class HostFactoryTest  {
     @Test
     public void theHostShouldBePopulatedWithServices(){
         assertThat(host.getServices().isEmpty(), is(false));
+    }
+
+    private List<List<String>> buildServices(){
+        List<List<String>> services = new ArrayList<List<String>>();
+        List<String> service = new ArrayList<String>();
+        service.add("name");
+        service.add("status");
+        service.add("check");
+        service.add("duration");
+        service.add("attempt");
+        service.add("info");
+        services.add(service);
+        return services;
     }
 
 }
