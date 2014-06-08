@@ -2,6 +2,7 @@ package net.ryandoyle.libjnagios.builder;
 
 import net.ryandoyle.libjnagios.domain.Host;
 import net.ryandoyle.libjnagios.domain.HostFactory;
+import net.ryandoyle.libjnagios.domain.Service;
 import net.ryandoyle.libjnagios.page.SingleHostStatusPage;
 import org.junit.Before;
 import org.junit.Test;
@@ -11,6 +12,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static org.hamcrest.core.Is.is;
+import static org.hamcrest.core.Is.isA;
 import static org.junit.Assert.assertThat;
 import static org.mockito.Mockito.when;
 import static org.mockito.MockitoAnnotations.initMocks;
@@ -38,7 +40,7 @@ public class HostFactoryTest  {
 
     @Test
     public void theHostShouldBePopulatedWithServices(){
-        assertThat(host.getServices().isEmpty(), is(false));
+        assertThat(host.getServices().get(0), isA(Service.class));
     }
 
     private List<List<String>> buildServices(){
