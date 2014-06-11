@@ -42,8 +42,16 @@ public class SingleHostStatusPageTest {
     }
 
     @Test
-    public void hasTheHostnameOfTheHostOnThePage() throws IOException {
+    public void hasTheHostnameOfTheHostOnThePage() {
         assertThat(page.getHostname(), is(testHostname));
+    }
+
+    @Test
+    public void hasAnEmptyHostnameIfTheHostIsNotFoundOnThePage() throws IOException {
+        when(initialHttpClient.navigateTo("/status.cgi?embedded=1&noheader=1&limit=0&host=" + testHostname)).thenReturn(navigatedHttpClient);
+        when(navigatedHttpClient.getBody()).thenReturn(PageFixtures.SINGLE_HOST_INVALID_STATUS_PAGE);
+        SingleHostStatusPage page = new SingleHostStatusPage(initialHttpClient, testHostname);
+        assertThat(page.getHostname(), is(""));
     }
 
     @Test

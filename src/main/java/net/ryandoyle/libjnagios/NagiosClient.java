@@ -1,6 +1,7 @@
 package net.ryandoyle.libjnagios;
 
 
+import net.ryandoyle.libjnagios.domain.UnknownHostException;
 import net.ryandoyle.libjnagios.http.HttpClient;
 import net.ryandoyle.libjnagios.domain.Host;
 import net.ryandoyle.libjnagios.repository.HttpRepository;
@@ -23,7 +24,7 @@ public class NagiosClient {
         this.repository = new HttpRepository(httpClient);
     }
 
-    public Host getHost(String hostName) throws IOException {
+    public Host getHost(String hostName) throws IOException, UnknownHostException {
         return repository.getHost(hostName);
     }
 

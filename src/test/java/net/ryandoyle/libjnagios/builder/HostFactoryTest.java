@@ -3,6 +3,7 @@ package net.ryandoyle.libjnagios.builder;
 import net.ryandoyle.libjnagios.domain.Host;
 import net.ryandoyle.libjnagios.domain.HostFactory;
 import net.ryandoyle.libjnagios.domain.Service;
+import net.ryandoyle.libjnagios.domain.UnknownHostException;
 import net.ryandoyle.libjnagios.page.SingleHostStatusPage;
 import org.junit.Before;
 import org.junit.Test;
@@ -22,24 +23,28 @@ public class HostFactoryTest  {
     @Mock
     SingleHostStatusPage page;
 
-    Host host;
-
     @Before
     public void setup(){
         initMocks(this);
         when(page.getHostname()).thenReturn("localhost");
         when(page.getHostServices()).thenReturn(buildServices());
-
-        host = new HostFactory(page).buildHost();
     }
 
     @Test
-    public void itShouldCreateAHostFromAValidHtmlString(){
+    public void itShouldCreateAHostWithTheHostnameFromThePage() throws UnknownHostException {
+        Host host = new HostFactory(page).buildHost();
         assertThat(host.getName(), is("localhost"));
     }
 
+    @Test(expected = UnknownHostException.class)
+    public void itShouldRaiseAnExceptionIfTheHostOnThePageDoesNotExist() throws UnknownHostException {
+        when(page.getHostname()).thenReturn("");
+        new HostFactory(page).buildHost();
+    }
+
     @Test
-    public void theHostShouldBePopulatedWithServices(){
+    public void theHostShouldBePopulatedWithServices() throws UnknownHostException {
+        Host host = new HostFactory(page).buildHost();
         assertThat(host.getServices().get(0), isA(Service.class));
     }
 

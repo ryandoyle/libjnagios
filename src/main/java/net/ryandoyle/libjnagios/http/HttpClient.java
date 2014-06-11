@@ -1,8 +1,6 @@
 package net.ryandoyle.libjnagios.http;
 
 
-import com.sun.xml.internal.ws.api.ha.StickyFeature;
-
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.Authenticator;

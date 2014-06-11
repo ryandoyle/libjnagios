@@ -14,8 +14,12 @@ public class HostFactory {
         this.page = page;
     }
 
-    public Host buildHost() {
-        host = new Host(page.getHostname());
+    public Host buildHost() throws UnknownHostException {
+        String hostname = page.getHostname();
+        if (hostname.isEmpty()) {
+            throw new UnknownHostException();
+        }
+        host = new Host(hostname);
         addServicesToHost();
         return host;
     }
