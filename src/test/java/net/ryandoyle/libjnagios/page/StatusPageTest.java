@@ -1,7 +1,6 @@
 package net.ryandoyle.libjnagios.page;
 
 import net.ryandoyle.libjnagios.http.HttpClient;
-import org.hamcrest.core.Is;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mock;
@@ -17,12 +16,12 @@ import static org.hamcrest.core.Is.is;
 import static org.mockito.Mockito.when;
 import static org.mockito.MockitoAnnotations.initMocks;
 
-public class AllHostsStatusPageTest {
+public class StatusPageTest {
 
     public static final int FIRST_SERVICE = 0;
     private static final int SECOND_SERVICE = 2;
 
-    private AllHostsStatusPage page;
+    private StatusPage page;
 
     @Mock
     private HttpClient httpClient;
@@ -35,7 +34,7 @@ public class AllHostsStatusPageTest {
         initMocks(this);
         when(httpClient.navigateTo("/status.cgi?embedded=1&noheader=1&limit=0")).thenReturn(navigatedHttpClient);
         when(navigatedHttpClient.getBody()).thenReturn(ALL_HOSTS_STATUS_PAGE);
-        page = new AllHostsStatusPage(httpClient);
+        page = new StatusPage(httpClient);
     }
 
     @Test
@@ -50,12 +49,12 @@ public class AllHostsStatusPageTest {
 
     @Test
     public void containsTheCurrentLoadServiceForTheFirstHost(){
-        assertThat(servicesForFirstHost().get(FIRST_SERVICE).get(AllHostsStatusPage.SERVICE_NAME), is("Current Load"));
+        assertThat(servicesForFirstHost().get(FIRST_SERVICE).get(StatusPage.SERVICE_NAME), is("Current Load"));
     }
 
     @Test
     public void containsTheDiskSpaceServiceForTheSecondHost(){
-        assertThat(servicesForSecondHost().get(SECOND_SERVICE).get(AllHostsStatusPage.SERVICE_NAME), is("Disk Space"));
+        assertThat(servicesForSecondHost().get(SECOND_SERVICE).get(StatusPage.SERVICE_NAME), is("Disk Space"));
     }
 
     private List<List<String>> servicesForFirstHost(){

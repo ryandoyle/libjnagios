@@ -11,7 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public class AllHostsStatusPage {
+public class StatusPage {
 
     public static final int SERVICE_INFORMATION_COLUMNS = 6;
     public static final int SERVICE_NAME = 0;
@@ -23,9 +23,14 @@ public class AllHostsStatusPage {
 
     private HttpClient httpClient;
 
-    private Document document;
+    Document document;
 
-    public AllHostsStatusPage(HttpClient httpClient) throws IOException {
+    public StatusPage(HttpClient httpClient, String queryParameters) throws IOException {
+        this.httpClient = httpClient.navigateTo("/status.cgi?embedded=1&noheader=1&limit=0" + queryParameters);
+        this.document = Jsoup.parse(this.httpClient.getBody());
+    }
+
+    public StatusPage(HttpClient httpClient) throws IOException {
         this.httpClient = httpClient.navigateTo("/status.cgi?embedded=1&noheader=1&limit=0");
         this.document = Jsoup.parse(this.httpClient.getBody());
     }

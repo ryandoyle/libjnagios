@@ -1,15 +1,15 @@
 package net.ryandoyle.libjnagios.domain;
 
-import net.ryandoyle.libjnagios.page.AllHostsStatusPage;
+import net.ryandoyle.libjnagios.page.StatusPage;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class HostsFactory {
 
-    private final AllHostsStatusPage page;
+    private final StatusPage page;
 
-    public HostsFactory(AllHostsStatusPage page){
+    public HostsFactory(StatusPage page){
         this.page = page;
     }
 
