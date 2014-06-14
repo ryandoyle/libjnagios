@@ -12,11 +12,8 @@ import java.util.List;
 
 public class SingleHostStatusPage extends StatusPage {
 
-    private final String host;
-
     public SingleHostStatusPage(HttpClient httpClient, String host) throws IOException {
         super(httpClient, "&host=" + host);
-        this.host = host;
     }
 
 }
