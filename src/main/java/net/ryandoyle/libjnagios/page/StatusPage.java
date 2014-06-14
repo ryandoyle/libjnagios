@@ -44,7 +44,7 @@ public class StatusPage {
         return hosts;
     }
 
-    public List<List<String>> getHostServices(String hostname){
+    public List<List<String>> getServicesForHost(String hostname){
         List servicesList = new ArrayList();
         for(Element serviceLink : linksForHostServices(hostname)){
             servicesList.add(getServiceRow(serviceLink));

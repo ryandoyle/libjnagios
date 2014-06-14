@@ -66,7 +66,7 @@ public class StatusPageTest {
     }
 
     private List<List<String>> getServicesForHostWithIndex(int index){
-        return page.getHostServices(page.getHosts().get(index));
+        return page.getServicesForHost(page.getHosts().get(index));
     }
 
 

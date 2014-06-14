@@ -38,7 +38,7 @@ public class SingleHostStatusPageTest {
         when(initialHttpClient.navigateTo("/status.cgi?embedded=1&noheader=1&limit=0&host=" + testHostname)).thenReturn(navigatedHttpClient);
         when(navigatedHttpClient.getBody()).thenReturn(rawHtmlPage);
         page = new SingleHostStatusPage(initialHttpClient, testHostname);
-        firstService = page.getHostServices("localhost").get(FIRST);
+        firstService = page.getServicesForHost("localhost").get(FIRST);
     }
 
     @Test

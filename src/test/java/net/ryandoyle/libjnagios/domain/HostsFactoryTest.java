@@ -1,7 +1,5 @@
 package net.ryandoyle.libjnagios.domain;
 
-import net.ryandoyle.libjnagios.domain.*;
-import net.ryandoyle.libjnagios.page.SingleHostStatusPage;
 import net.ryandoyle.libjnagios.page.StatusPage;
 import org.junit.Before;
 import org.junit.Test;
@@ -29,7 +27,7 @@ public class HostsFactoryTest {
         hosts = new ArrayList<String>();
         hosts.add("localhost");
         when(page.getHosts()).thenReturn(hosts);
-        when(page.getHostServices("localhost")).thenReturn(buildServices());
+        when(page.getServicesForHost("localhost")).thenReturn(buildServices());
     }
 
     @Test

@@ -35,7 +35,7 @@ public class HostsFactory {
     }
 
     private void addServicesForHost(Host host){
-        for(List<String> service : page.getHostServices(host.getName())){
+        for(List<String> service : page.getServicesForHost(host.getName())){
             host.addService(new ServiceFactory(service).buildService());
         }
     }
