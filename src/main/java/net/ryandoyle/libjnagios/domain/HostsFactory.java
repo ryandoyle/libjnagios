@@ -13,12 +13,19 @@ public class HostsFactory {
         this.page = page;
     }
 
-    public List<Host> buildHosts() {
+    public List<Host> buildHosts() throws NoHostsFoundException {
+        if(thePageContainsNoHosts()){
+            throw new NoHostsFoundException();
+        }
         List<Host> hosts = new ArrayList<Host>();
         for (String host : this.page.getHosts()){
             hosts.add(buildHost(host));
         }
         return hosts;
+    }
+
+    private boolean thePageContainsNoHosts() {
+        return this.page.getHosts().isEmpty();
     }
 
     private Host buildHost(String hostname){

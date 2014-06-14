@@ -2,7 +2,7 @@ package net.ryandoyle.libjnagios.functional;
 
 import net.ryandoyle.libjnagios.NagiosClient;
 import net.ryandoyle.libjnagios.domain.Host;
-import net.ryandoyle.libjnagios.domain.UnknownHostException;
+import net.ryandoyle.libjnagios.domain.NoHostsFoundException;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -23,7 +23,7 @@ public class GetAllHostsFunctionalTest {
     private Host secondHost;
 
     @Before
-    public void setUp() throws IOException {
+    public void setUp() throws IOException, NoHostsFoundException {
         nagiosClient = new NagiosClient("http://localhost:8088/cgi-bin/nagios3/", "nagiosadmin", "nagiosadmin");
         hosts = nagiosClient.getAllHosts();
         firstHost = hosts.get(0);

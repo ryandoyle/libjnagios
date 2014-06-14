@@ -1,10 +1,7 @@
 package net.ryandoyle.libjnagios.repository;
 
-import net.ryandoyle.libjnagios.domain.HostFactory;
-import net.ryandoyle.libjnagios.domain.HostsFactory;
-import net.ryandoyle.libjnagios.domain.UnknownHostException;
+import net.ryandoyle.libjnagios.domain.*;
 import net.ryandoyle.libjnagios.http.HttpClient;
-import net.ryandoyle.libjnagios.domain.Host;
 import net.ryandoyle.libjnagios.page.StatusPage;
 import net.ryandoyle.libjnagios.page.SingleHostStatusPage;
 
@@ -27,7 +24,7 @@ public class HttpRepository implements NagiosRepository {
     }
 
     @Override
-    public List<Host> getAllHosts() throws IOException {
+    public List<Host> getAllHosts() throws IOException, NoHostsFoundException {
         StatusPage page = new StatusPage(httpClient);
         return new HostsFactory(page).buildHosts();
     }
