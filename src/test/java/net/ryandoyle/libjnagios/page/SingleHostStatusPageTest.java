@@ -38,21 +38,14 @@ public class SingleHostStatusPageTest {
         when(initialHttpClient.navigateTo("/status.cgi?embedded=1&noheader=1&limit=0&host=" + testHostname)).thenReturn(navigatedHttpClient);
         when(navigatedHttpClient.getBody()).thenReturn(rawHtmlPage);
         page = new SingleHostStatusPage(initialHttpClient, testHostname);
-        firstService = page.getHostServices().get(FIRST);
+        firstService = page.getHostServices("localhost").get(FIRST);
     }
 
     @Test
     public void hasTheHostnameOfTheHostOnThePage() {
-        assertThat(page.getHostname(), is(testHostname));
+        assertThat(page.getHosts().get(0), is(testHostname));
     }
 
-    @Test
-    public void hasAnEmptyHostnameIfTheHostIsNotFoundOnThePage() throws IOException {
-        when(initialHttpClient.navigateTo("/status.cgi?embedded=1&noheader=1&limit=0&host=" + testHostname)).thenReturn(navigatedHttpClient);
-        when(navigatedHttpClient.getBody()).thenReturn(PageFixtures.SINGLE_HOST_INVALID_STATUS_PAGE);
-        SingleHostStatusPage page = new SingleHostStatusPage(initialHttpClient, testHostname);
-        assertThat(page.getHostname(), is(""));
-    }
 
     @Test
     public void containsTheNameForAService(){

@@ -2,8 +2,8 @@ package net.ryandoyle.libjnagios.functional;
 
 import net.ryandoyle.libjnagios.NagiosClient;
 import net.ryandoyle.libjnagios.domain.Host;
+import net.ryandoyle.libjnagios.domain.NoHostsFoundException;
 import net.ryandoyle.libjnagios.domain.Service;
-import net.ryandoyle.libjnagios.domain.UnknownHostException;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -25,7 +25,7 @@ public class GetHostFunctionalTest {
     Service sshService;
 
     @Before
-    public void setUp() throws IOException, UnknownHostException {
+    public void setUp() throws IOException, NoHostsFoundException {
         nagiosClient = new NagiosClient("http://localhost:8088/cgi-bin/nagios3/", "nagiosadmin", "nagiosadmin");
         host = nagiosClient.getHost("localhost");
         services = host.getServices();
@@ -37,8 +37,8 @@ public class GetHostFunctionalTest {
         assertThat(host.getName(), is("localhost"));
     }
 
-    @Test(expected = UnknownHostException.class)
-    public void anExceptionShouldBeRaisedIfTheHostDoesNotExist() throws IOException, UnknownHostException {
+    @Test(expected = NoHostsFoundException.class)
+    public void anExceptionShouldBeRaisedIfTheHostDoesNotExist() throws IOException, NoHostsFoundException {
         nagiosClient.getHost("invalid");
     }
 

@@ -17,9 +17,9 @@ public class HttpRepository implements NagiosRepository {
     }
 
     @Override
-    public Host getHost(String hostName) throws IOException, UnknownHostException {
+    public Host getHost(String hostName) throws IOException, NoHostsFoundException {
         SingleHostStatusPage page = new SingleHostStatusPage(httpClient, hostName);
-        Host host = new HostFactory(page).buildHost();
+        Host host = new HostsFactory(page).buildHosts().get(0);
         return host;
     }
 

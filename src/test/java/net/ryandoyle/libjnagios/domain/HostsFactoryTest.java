@@ -1,10 +1,8 @@
-package net.ryandoyle.libjnagios.builder;
+package net.ryandoyle.libjnagios.domain;
 
-import net.ryandoyle.libjnagios.domain.Host;
-import net.ryandoyle.libjnagios.domain.HostFactory;
-import net.ryandoyle.libjnagios.domain.Service;
-import net.ryandoyle.libjnagios.domain.UnknownHostException;
+import net.ryandoyle.libjnagios.domain.*;
 import net.ryandoyle.libjnagios.page.SingleHostStatusPage;
+import net.ryandoyle.libjnagios.page.StatusPage;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mock;
@@ -18,33 +16,37 @@ import static org.junit.Assert.assertThat;
 import static org.mockito.Mockito.when;
 import static org.mockito.MockitoAnnotations.initMocks;
 
-public class HostFactoryTest  {
+public class HostsFactoryTest {
 
     @Mock
-    SingleHostStatusPage page;
+    StatusPage page;
+
+    List<String> hosts;
 
     @Before
     public void setup(){
         initMocks(this);
-        when(page.getHostname()).thenReturn("localhost");
-        when(page.getHostServices()).thenReturn(buildServices());
+        hosts = new ArrayList<String>();
+        hosts.add("localhost");
+        when(page.getHosts()).thenReturn(hosts);
+        when(page.getHostServices("localhost")).thenReturn(buildServices());
     }
 
     @Test
-    public void itShouldCreateAHostWithTheHostnameFromThePage() throws UnknownHostException {
-        Host host = new HostFactory(page).buildHost();
+    public void itShouldCreateAHostWithTheHostnameFromThePage() throws NoHostsFoundException {
+        Host host = new HostsFactory(page).buildHosts().get(0);
         assertThat(host.getName(), is("localhost"));
     }
 
-    @Test(expected = UnknownHostException.class)
-    public void itShouldRaiseAnExceptionIfTheHostOnThePageDoesNotExist() throws UnknownHostException {
-        when(page.getHostname()).thenReturn("");
-        new HostFactory(page).buildHost();
+    @Test(expected = NoHostsFoundException.class)
+    public void itShouldRaiseAnExceptionIfTheHostOnThePageDoesNotExist() throws NoHostsFoundException {
+        when(page.getHosts()).thenReturn(new ArrayList<String>());
+        new HostsFactory(page).buildHosts();
     }
 
     @Test
-    public void theHostShouldBePopulatedWithServices() throws UnknownHostException {
-        Host host = new HostFactory(page).buildHost();
+    public void theHostShouldBePopulatedWithServices() throws NoHostsFoundException {
+        Host host = new HostsFactory(page).buildHosts().get(0);
         assertThat(host.getServices().get(0), isA(Service.class));
     }
 

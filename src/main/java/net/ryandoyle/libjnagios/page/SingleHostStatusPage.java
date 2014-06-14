@@ -19,13 +19,4 @@ public class SingleHostStatusPage extends StatusPage {
         this.host = host;
     }
 
-    public String getHostname() {
-        // FIXME: refactor to throw an "InvalidHostElement" exception or similar
-        Elements elements = document.select("a[href~=extinfo\\.cgi\\?type\\=1]");
-        return elements.isEmpty() ? "" : elements.first().text();
-    }
-
-    public List<List<String>> getHostServices(){
-        return super.getHostServices(host);
-    }
 }
