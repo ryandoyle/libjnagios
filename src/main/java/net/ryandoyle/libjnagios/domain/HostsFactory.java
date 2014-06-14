@@ -18,17 +18,17 @@ public class HostsFactory {
             throw new NoHostsFoundException();
         }
         List<Host> hosts = new ArrayList<Host>();
-        for (String host : this.page.getHosts()){
-            hosts.add(buildHost(host));
+        for (String hostname : this.page.getHostnames()){
+            hosts.add(buildHostWithHostname(hostname));
         }
         return hosts;
     }
 
     private boolean thePageContainsNoHosts() {
-        return this.page.getHosts().isEmpty();
+        return this.page.getHostnames().isEmpty();
     }
 
-    private Host buildHost(String hostname){
+    private Host buildHostWithHostname(String hostname){
         Host host = new Host(hostname);
         addServicesForHost(host);
         return host;

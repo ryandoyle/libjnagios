@@ -35,7 +35,7 @@ public class StatusPage {
         this.document = Jsoup.parse(this.httpClient.getBody());
     }
 
-    public List<String> getHosts(){
+    public List<String> getHostnames(){
         List<String> hosts = new ArrayList<String>();
         Elements elements = document.select("a[href~=extinfo\\.cgi\\?type\\=1]").select("a[title]");
         for (Element element : elements) {

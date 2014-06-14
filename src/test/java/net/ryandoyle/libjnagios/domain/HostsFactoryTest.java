@@ -26,7 +26,7 @@ public class HostsFactoryTest {
         initMocks(this);
         hosts = new ArrayList<String>();
         hosts.add("localhost");
-        when(page.getHosts()).thenReturn(hosts);
+        when(page.getHostnames()).thenReturn(hosts);
         when(page.getServicesForHost("localhost")).thenReturn(buildServices());
     }
 
@@ -38,7 +38,7 @@ public class HostsFactoryTest {
 
     @Test(expected = NoHostsFoundException.class)
     public void itShouldRaiseAnExceptionIfTheHostOnThePageDoesNotExist() throws NoHostsFoundException {
-        when(page.getHosts()).thenReturn(new ArrayList<String>());
+        when(page.getHostnames()).thenReturn(anEmptyListOfStrings());
         new HostsFactory(page).buildHosts();
     }
 
@@ -46,6 +46,10 @@ public class HostsFactoryTest {
     public void theHostShouldBePopulatedWithServices() throws NoHostsFoundException {
         Host host = new HostsFactory(page).buildHosts().get(0);
         assertThat(host.getServices().get(0), isA(Service.class));
+    }
+
+    private List<String> anEmptyListOfStrings(){
+        return new ArrayList<String>();
     }
 
     private List<List<String>> buildServices(){

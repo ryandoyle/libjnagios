@@ -1,5 +1,6 @@
 package net.ryandoyle.libjnagios.page;
 
+
 import net.ryandoyle.libjnagios.http.HttpClient;
 import org.junit.Before;
 import org.junit.Test;
@@ -8,66 +9,69 @@ import org.mockito.Mock;
 import java.io.IOException;
 import java.util.List;
 
-import static net.ryandoyle.libjnagios.page.PageFixtures.ALL_HOSTS_STATUS_PAGE;
-import static org.hamcrest.CoreMatchers.hasItem;
 import static org.hamcrest.CoreMatchers.hasItems;
-import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.core.Is.is;
+import static org.junit.Assert.assertThat;
 import static org.mockito.Mockito.when;
 import static org.mockito.MockitoAnnotations.initMocks;
 
 public class StatusPageTest {
 
-    public static final int FIRST_SERVICE = 0;
-    private static final int SECOND_SERVICE = 2;
-
-    private StatusPage page;
-
+    private static final int FIRST = 0;
     @Mock
-    private HttpClient httpClient;
+    private HttpClient initialHttpClient;
 
     @Mock
     private HttpClient navigatedHttpClient;
 
+    private String rawHtmlPage = PageFixtures.ALL_HOSTS_STATUS_PAGE;
+
+    private StatusPage page;
+
+    private List<String> firstServiceForFirstHost;
+
+
     @Before
     public void setUp() throws IOException {
         initMocks(this);
-        when(httpClient.navigateTo("/status.cgi?embedded=1&noheader=1&limit=0")).thenReturn(navigatedHttpClient);
-        when(navigatedHttpClient.getBody()).thenReturn(ALL_HOSTS_STATUS_PAGE);
-        page = new StatusPage(httpClient);
+        when(initialHttpClient.navigateTo("/status.cgi?embedded=1&noheader=1&limit=0")).thenReturn(navigatedHttpClient);
+        when(navigatedHttpClient.getBody()).thenReturn(rawHtmlPage);
+        page = new StatusPage(initialHttpClient);
+        firstServiceForFirstHost = page.getServicesForHost("localhost").get(FIRST);
     }
 
     @Test
-    public void containTheHostnamesOfAllHostsOnThePage(){
-        assertThat(page.getHosts(), hasItems("localhost", "precise64"));
+    public void hasTheHostnamesOfAllHostsOnThePage() {
+        assertThat(page.getHostnames(), hasItems("localhost", "precise64"));
     }
 
     @Test
-    public void onlyHasTheHostnamesWhenGettingHosts(){
-        assertThat(page.getHosts().size(), is(2));
+    public void containsTheNameForAService(){
+        assertThat(firstServiceForFirstHost.get(StatusPage.SERVICE_NAME), is("Current Load"));
     }
 
     @Test
-    public void containsTheCurrentLoadServiceForTheFirstHost(){
-        assertThat(servicesForFirstHost().get(FIRST_SERVICE).get(StatusPage.SERVICE_NAME), is("Current Load"));
+    public void containsTheStatusForAService(){
+        assertThat(firstServiceForFirstHost.get(StatusPage.SERVICE_STATUS), is("OK"));
     }
 
     @Test
-    public void containsTheDiskSpaceServiceForTheSecondHost(){
-        assertThat(servicesForSecondHost().get(SECOND_SERVICE).get(StatusPage.SERVICE_NAME), is("Disk Space"));
+    public void containsTheLastCheckForAService(){
+        assertThat(firstServiceForFirstHost.get(StatusPage.SERVICE_LAST_CHECK), is("2014-06-14 02:40:22"));
     }
 
-    private List<List<String>> servicesForFirstHost(){
-        return getServicesForHostWithIndex(0);
+    @Test
+    public void containsTheDurationForAService(){
+        assertThat(firstServiceForFirstHost.get(StatusPage.SERVICE_DURATION), is("29d 1h 3m 13s"));
     }
 
-    private List<List<String>> servicesForSecondHost(){
-        return getServicesForHostWithIndex(1);
+    @Test
+    public void containsTheAttemptForAService(){
+        assertThat(firstServiceForFirstHost.get(StatusPage.SERVICE_ATTEMPT), is("1/4"));
     }
 
-    private List<List<String>> getServicesForHostWithIndex(int index){
-        return page.getServicesForHost(page.getHosts().get(index));
+    @Test
+    public void containsTheStatusInformationForAService(){
+        assertThat(firstServiceForFirstHost.get(StatusPage.SERVICE_STATUS_INFORMATION), is("OK - load average: 0.00, 0.01, 0.01"));
     }
-
-
 }
