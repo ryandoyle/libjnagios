@@ -8,6 +8,7 @@ import net.ryandoyle.libjnagios.repository.HttpRepository;
 import net.ryandoyle.libjnagios.repository.NagiosRepository;
 
 import java.io.IOException;
+import java.util.List;
 
 public class NagiosClient {
 
@@ -26,6 +27,10 @@ public class NagiosClient {
 
     public Host getHost(String hostName) throws IOException, UnknownHostException {
         return repository.getHost(hostName);
+    }
+
+    public List<Host> getAllHosts() throws IOException {
+        return repository.getAllHosts();
     }
 
 }

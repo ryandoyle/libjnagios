@@ -10,4 +10,6 @@ import java.util.List;
 public interface NagiosRepository {
 
     public Host getHost(String hostName) throws IOException, UnknownHostException;
+
+    public List<Host> getAllHosts() throws IOException;
 }
