@@ -1,5 +1,6 @@
 package net.ryandoyle.libjnagios.page;
 
+import net.ryandoyle.libjnagios.domain.QueryFilter;
 import net.ryandoyle.libjnagios.http.HttpClient;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -25,8 +26,8 @@ public class StatusPage {
 
     Document document;
 
-    public StatusPage(HttpClient httpClient, String queryParameters) throws IOException {
-        this.httpClient = httpClient.navigateTo("/status.cgi?embedded=1&noheader=1&limit=0" + queryParameters);
+    public StatusPage(HttpClient httpClient, QueryFilter queryFilter) throws IOException {
+        this.httpClient = httpClient.navigateTo("/status.cgi?embedded=1&noheader=1&limit=0&" + queryFilter.toString());
         this.document = Jsoup.parse(this.httpClient.getBody());
     }
 

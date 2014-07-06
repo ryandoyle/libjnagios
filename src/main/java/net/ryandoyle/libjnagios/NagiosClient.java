@@ -2,6 +2,7 @@ package net.ryandoyle.libjnagios;
 
 
 import net.ryandoyle.libjnagios.domain.NoHostsFoundException;
+import net.ryandoyle.libjnagios.domain.QueryFilter;
 import net.ryandoyle.libjnagios.http.HttpClient;
 import net.ryandoyle.libjnagios.domain.Host;
 import net.ryandoyle.libjnagios.repository.HttpRepository;
@@ -26,11 +27,11 @@ public class NagiosClient {
     }
 
     public Host getHost(String hostName) throws IOException, NoHostsFoundException {
-        return repository.getHost(hostName);
+        return repository.getHosts(new QueryFilter().setHostName(hostName)).get(0);
     }
 
     public List<Host> getAllHosts() throws IOException, NoHostsFoundException {
-        return repository.getAllHosts();
+        return repository.getHosts();
     }
 
 }
