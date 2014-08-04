@@ -14,7 +14,7 @@ import static org.junit.Assert.assertThat;
 import static org.mockito.Mockito.when;
 import static org.mockito.MockitoAnnotations.initMocks;
 
-public class HostsFactoryTest {
+public class HostsBuilderTest {
 
     @Mock
     StatusPage page;
@@ -32,19 +32,19 @@ public class HostsFactoryTest {
 
     @Test
     public void itShouldCreateAHostWithTheHostnameFromThePage() throws NoHostsFoundException {
-        Host host = new HostsFactory(page).buildHosts().get(0);
+        Host host = new HostsBuilder(page).buildHosts().get(0);
         assertThat(host.getName(), is("localhost"));
     }
 
     @Test(expected = NoHostsFoundException.class)
     public void itShouldRaiseAnExceptionIfTheHostOnThePageDoesNotExist() throws NoHostsFoundException {
         when(page.getHostnames()).thenReturn(anEmptyListOfStrings());
-        new HostsFactory(page).buildHosts();
+        new HostsBuilder(page).buildHosts();
     }
 
     @Test
     public void theHostShouldBePopulatedWithServices() throws NoHostsFoundException {
-        Host host = new HostsFactory(page).buildHosts().get(0);
+        Host host = new HostsBuilder(page).buildHosts().get(0);
         assertThat(host.getServices().get(0), isA(Service.class));
     }
 

@@ -18,13 +18,13 @@ public class HttpRepository implements NagiosRepository {
     @Override
     public List<Host> getHosts() throws IOException, NoHostsFoundException {
         StatusPage page = new StatusPage(httpClient);
-        return new HostsFactory(page).buildHosts();
+        return new HostsBuilder(page).buildHosts();
     }
 
     @Override
     public List<Host> getHosts(QueryFilter queryFilter) throws IOException, NoHostsFoundException {
         StatusPage page = new StatusPage(httpClient, queryFilter);
-        return new HostsFactory(page).buildHosts();
+        return new HostsBuilder(page).buildHosts();
     }
 
 }

@@ -5,11 +5,11 @@ import net.ryandoyle.libjnagios.page.StatusPage;
 import java.util.ArrayList;
 import java.util.List;
 
-public class HostsFactory {
+public class HostsBuilder {
 
     private final StatusPage page;
 
-    public HostsFactory(StatusPage page){
+    public HostsBuilder(StatusPage page){
         this.page = page;
     }
 
