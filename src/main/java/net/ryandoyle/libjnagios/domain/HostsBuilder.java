@@ -36,7 +36,7 @@ public class HostsBuilder {
 
     private void addServicesForHost(Host host){
         for(List<String> service : page.getServicesForHost(host.getName())){
-            host.addService(new ServiceFactory(service).buildService());
+            host.addService(new ServiceBuilder(service).buildService());
         }
     }
 

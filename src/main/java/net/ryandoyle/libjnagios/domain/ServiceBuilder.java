@@ -3,12 +3,12 @@ package net.ryandoyle.libjnagios.domain;
 
 import java.util.List;
 
-public class ServiceFactory {
+public class ServiceBuilder {
 
     private final List<String> serviceAttributes;
     private Service service;
 
-    public ServiceFactory(List<String> serviceAttributes){
+    public ServiceBuilder(List<String> serviceAttributes){
         this.serviceAttributes = serviceAttributes;
     }
 

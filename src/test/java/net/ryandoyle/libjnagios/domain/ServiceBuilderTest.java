@@ -1,6 +1,5 @@
 package net.ryandoyle.libjnagios.domain;
 
-import org.hamcrest.Matcher;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -10,7 +9,7 @@ import java.util.List;
 import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.assertThat;
 
-public class ServiceFactoryTest {
+public class ServiceBuilderTest {
 
     Service service;
 
@@ -25,7 +24,7 @@ public class ServiceFactoryTest {
         serviceAttributes.add("1d 1h 1m 1s");
         serviceAttributes.add("1/4");
         serviceAttributes.add("My service is operating normally!");
-        service = new ServiceFactory(serviceAttributes).buildService();
+        service = new ServiceBuilder(serviceAttributes).buildService();
     }
 
     @Test
