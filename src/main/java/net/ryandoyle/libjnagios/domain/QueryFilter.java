@@ -3,7 +3,7 @@ package net.ryandoyle.libjnagios.domain;
 
 public class QueryFilter {
 
-    public static String HOSTNAME_QUERY_KEY = "host";
+    public final String HOSTNAME_QUERY_KEY = "host";
     public StringBuilder queryString;
 
     public QueryFilter(){
