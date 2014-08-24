@@ -1,12 +1,17 @@
 package net.ryandoyle.libjnagios.http;
 
 
+
+
+import net.ryandoyle.libjnagios.http.domain.Form;
+import net.ryandoyle.libjnagios.http.request.GetRequest;
+import net.ryandoyle.libjnagios.http.request.PostRequest;
+
 import java.io.IOException;
-import java.io.InputStream;
 import java.net.Authenticator;
+import java.net.HttpURLConnection;
 import java.net.PasswordAuthentication;
 import java.net.URL;
-import java.net.URLConnection;
 
 public class HttpClient {
 
@@ -15,7 +20,7 @@ public class HttpClient {
     private static final String QUERY_SEPARATOR = "&";
 
     private final String url;
-    private URLConnection connection;
+    private HttpURLConnection connection;
 
     public HttpClient(String url, final String userName, final String password) throws IOException {
         this(url);
@@ -29,16 +34,19 @@ public class HttpClient {
 
     public HttpClient(String url) throws IOException {
         this.url = url;
-        this.connection = new URL(url).openConnection();
+        this.connection = (HttpURLConnection) new URL(url).openConnection();
     }
 
     public String getUrl(){
         return url;
     }
 
-    public String getBody() throws IOException {
-        InputStream response = connection.getInputStream();
-        return new StreamReader(response).read();
+    public String get() throws IOException {
+        return new GetRequest(connection).getResponseBody();
+    }
+
+    public String post(Form form) throws IOException {
+        return new PostRequest(connection, form).postForm().getResponseBody();
     }
 
     public HttpClient navigateTo(String url) throws IOException {

@@ -35,7 +35,7 @@ public class StatusPageTest {
     public void setUp() throws IOException {
         initMocks(this);
         when(initialHttpClient.navigateTo("/status.cgi?embedded=1&noheader=1&limit=0")).thenReturn(navigatedHttpClient);
-        when(navigatedHttpClient.getBody()).thenReturn(rawHtmlPage);
+        when(navigatedHttpClient.get()).thenReturn(rawHtmlPage);
         page = new StatusPage(initialHttpClient);
         firstServiceForFirstHost = page.getServicesForHost("localhost").get(FIRST);
     }

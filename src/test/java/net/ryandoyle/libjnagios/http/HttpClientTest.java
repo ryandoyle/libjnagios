@@ -1,5 +1,6 @@
 package net.ryandoyle.libjnagios.http;
 
+import net.ryandoyle.libjnagios.http.domain.Form;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -20,6 +21,20 @@ public class HttpClientTest {
     @Test
     public void itNavigatesToThePageSpecified() throws IOException {
         assertThat(client.navigateTo("/a").getUrl(), is("http://ahost/a"));
+    }
+
+    @Test
+    public void itSupportsConnectingUsingHttps() throws IOException {
+        HttpClient secureClient = new HttpClient("https://test");
+        assertThat(secureClient.navigateTo("/a").getUrl(), is("https://test/a"));
+    }
+
+    @Test
+    public void itPostsAForm() throws IOException {
+        Form form = new Form();
+        form.add("test", "derp");
+        HttpClient c = new HttpClient("http://localhost:8088");
+        c.navigateTo("/command.cgi").post(form);
     }
 
 }

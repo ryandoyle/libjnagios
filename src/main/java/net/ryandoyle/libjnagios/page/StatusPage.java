@@ -28,12 +28,12 @@ public class StatusPage {
 
     public StatusPage(HttpClient httpClient, QueryFilter queryFilter) throws IOException {
         this.httpClient = httpClient.navigateTo("/status.cgi?embedded=1&noheader=1&limit=0&" + queryFilter.toString());
-        this.document = Jsoup.parse(this.httpClient.getBody());
+        this.document = Jsoup.parse(this.httpClient.get());
     }
 
     public StatusPage(HttpClient httpClient) throws IOException {
         this.httpClient = httpClient.navigateTo("/status.cgi?embedded=1&noheader=1&limit=0");
-        this.document = Jsoup.parse(this.httpClient.getBody());
+        this.document = Jsoup.parse(this.httpClient.get());
     }
 
     public List<String> getHostnames(){
